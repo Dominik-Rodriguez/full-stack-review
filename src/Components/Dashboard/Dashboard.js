@@ -1,6 +1,7 @@
 //Dashboard is where users can view their posts, create new posts, and delete posts.
 import React, {Component} from 'react';
 import axios from 'axios';
+import {connect} from 'react-redux';
 import './Dashboard.css';
 
 class Dashboard extends Component {
@@ -9,6 +10,12 @@ class Dashboard extends Component {
         this.state = {
             posts: [],
             postImage: ''
+        }
+    }
+
+    componentDidMount(){
+        if(!this.props.user.email){
+            this.props.history.push('/');
         }
     }
 
@@ -63,4 +70,6 @@ class Dashboard extends Component {
     }
 }
 
-export default Dashboard;
+const mapStateToProps =  reduxState => reduxState;
+
+export default connect(mapStateToProps)(Dashboard);

@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 import axios from 'axios';
+import {connect} from 'react-redux';
+import {getUser, clearUser} from '../../redux/reducer'
 import './Profile.css';
 
 class Profile extends Component {
@@ -8,6 +10,12 @@ class Profile extends Component {
         this.state = {
             username: '',
             editView: false
+        }
+    }
+
+    componentDidMount(){
+        if(!this.props.user.email){
+            this.props.history.push('/');
         }
     }
 
@@ -65,4 +73,6 @@ class Profile extends Component {
     }
 }
 
-export default Profile;
+const mapStateToProps = reduxState => reduxState;
+
+export default connect(mapStateToProps, {getUser, clearUser})(Profile);
